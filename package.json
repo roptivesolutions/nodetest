@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "main": "main.cjs",
+  "description": "AMS-Pro Electron App",
   "author": {
     "name": "Your Name",
     "email": "your-email@example.com"
