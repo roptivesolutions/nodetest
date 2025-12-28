@@ -1,0 +1,7 @@
+- name: Create GitHub Release
+  uses: ncipollo/release-action@v1
+  with:
+    tag: v${{ steps.get_version.outputs.version }}
+    draft: false
+    prerelease: false
+    token: ${{ secrets.GH_TOKEN }}
