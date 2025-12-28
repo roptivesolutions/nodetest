@@ -8,32 +8,38 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [20.x]
+    runs-on: ${{ matrix.os }}
 
     steps:
+      # 1️⃣ Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4️⃣ Build React app
       - name: Build React app
         run: npm run build
 
+      # 5️⃣ Package Electron app
       - name: Package Electron app
         run: npm run dist
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4   # updated from v3 to v4
+      # 6️⃣ Upload artifacts for this OS
+      - name: Upload Electron artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: Electron-app-${{ matrix.os }}
+          name: Electron-App-${{ matrix.os }}
           path: dist_electron/
