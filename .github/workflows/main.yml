@@ -1,4 +1,4 @@
-name: Build Electron Apps
+name: Build Electron App
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      # 1️⃣ Checkout the repository
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -37,9 +37,15 @@ jobs:
       - name: Package Electron app
         run: npm run dist
 
-      # 6️⃣ Upload artifacts for this OS
-      - name: Upload Electron artifacts
+      # 6️⃣ Upload artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Electron-App-${{ matrix.os }}
+          name: Electron-App-${{ matrix.os }}-${{ steps.get_version.outputs.version }}
           path: dist_electron/
+
+      # 7️⃣ Get version from package.json
+      - name: Get version
+        id: get_version
+        run: |
+          echo "::set-output name=version::$(node -p \"require('./package.json').version\")"
