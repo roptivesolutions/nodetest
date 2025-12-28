@@ -1,0 +1,8 @@
+{
+  "name": "AMS Pro",
+  "description": "A comprehensive enterprise-grade attendance and productivity management system with role-based access, automated tracking, and advanced reporting.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}

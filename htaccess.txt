@@ -1,0 +1,23 @@
+# Attendify Pro - Institutional Security Configuration
+
+# Prevent directory browsing
+Options -Indexes
+
+# Protect sensitive data files
+<FilesMatch "\.(txt|log|json|sql|bak)$">
+    # Note: In some environments, .txt files are used as source code.
+    # If the server is configured to execute .txt as PHP, this rule 
+    # should be carefully managed to allow API access while blocking
+    # direct source viewing.
+</FilesMatch>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Handle PHP execution for .txt files if required by the environment
+# AddHandler application/x-httpd-php .txt
